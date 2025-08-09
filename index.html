@@ -22,7 +22,6 @@
     .container{width:min(100%,1200px);margin:auto;padding:18px;display:flex;align-items:center;justify-content:space-between}
     .brand{display:flex;align-items:center;gap:10px;font-weight:800}
     .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(110,168,255,.2),rgba(110,168,255,.08));border:1px solid rgba(110,168,255,.35);box-shadow:inset 0 0 12px rgba(255,255,255,.12),0 8px 22px rgba(62,106,214,.25)}
-    /* أيقونة ∞ صحيحة */
     .logo svg{width:26px;height:26px;fill:none;stroke:var(--accent-2);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
     main{padding:40px 18px 80px}
     .hero{text-align:center;max-width:820px;margin:auto}
@@ -42,7 +41,6 @@
     footer{margin-top:60px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,12,26,.5);padding:20px;text-align:center}
     footer a{color:var(--accent-2);text-decoration:none}
     footer a:hover{text-decoration:underline}
-    /* موبايل */
     @media (max-width:520px){
       .hero h1{font-size:1.6rem}
       .btn{padding:10px 14px}
@@ -50,11 +48,13 @@
   </style>
 </head>
 <body>
+  <!-- كود الإعلان -->
+  <script type='text/javascript' src='//pl27384320.profitableratecpm.com/e0/49/60/e04960be39baea75aae14447bd3a27e9.js'></script>
+
   <header>
     <div class="container">
       <div class="brand">
         <div class="logo" aria-hidden="true">
-          <!-- Infinity ( ∞ ) -->
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M7 12c2.5-3.5 5-3.5 7.5 0M10 12c-2.5 3.5-5 3.5-7.5 0M14 12c2.5 3.5 5 3.5 7.5 0"/>
           </svg>
@@ -65,12 +65,9 @@
   </header>
 
   <main>
-    <!-- البطل -->
     <section class="hero">
       <h1>استخرج الأمر بكتابة الكود</h1>
       <p>أوامر احترافية تساعدك في إنجاز مهامك وتوفير وقتك — واجهة عصرية، بسيطة، وسريعة الاستجابة.</p>
-
-      <!-- البحث -->
       <div class="search">
         <input id="codeInput" placeholder="(أكتب الكود) مثال: MY1">
         <button class="btn" id="searchBtn">بحث</button>
@@ -78,10 +75,8 @@
       </div>
     </section>
 
-    <!-- النتيجة -->
     <section class="result-wrap">
       <div id="empty" class="card"><div class="card-body" style="text-align:center"><span class="muted">✨ اكتب الكود ثم اضغط «بحث» لعرض الأمر.</span></div></div>
-
       <div id="resultCard" class="card" style="display:none">
         <div class="card-body">
           <div class="prompt-text" id="resText"><pre>—</pre></div>
@@ -90,15 +85,11 @@
           </div>
         </div>
       </div>
-
       <div id="notFound" class="card" style="display:none">
-        <div class="card-body" style="border-right:4px solid var(--danger)">
-          لم نجد هذا الكود.
-        </div>
+        <div class="card-body" style="border-right:4px solid var(--danger)">لم نجد هذا الكود.</div>
       </div>
     </section>
 
-    <!-- طريقة الاستخدام (من JSON) -->
     <section class="result-wrap">
       <div class="card">
         <div class="card-body">
@@ -109,18 +100,12 @@
     </section>
   </main>
 
-  <!-- سكربت (منفصل عن الفوتر) -->
   <script>
-    // قاعدة البيانات من JSON
     let DB = null;
-
-    // تحميل الـ JSON مع منع الكاش
     async function loadDB(){
       try{
         const res = await fetch('prompts.json?v=' + Date.now());
         DB = await res.json();
-
-        // طريقة الاستخدام
         const howto = (DB.static_text && DB.static_text.usage_guide) ? DB.static_text.usage_guide : '';
         document.getElementById('howtoBody').textContent = howto || '—';
       }catch(err){
@@ -128,8 +113,6 @@
         document.getElementById('howtoBody').textContent = 'تعذّر تحميل البيانات. حدّث الصفحة.';
       }
     }
-
-    // بحث
     function doSearch(){
       const input = document.getElementById('codeInput');
       const code = (input.value || '').trim().toUpperCase();
@@ -150,8 +133,6 @@
         document.getElementById('notFound').style.display='block';
       }
     }
-
-    // نسخ
     function doCopy(){
       const txt = document.getElementById('resText').innerText || '';
       if(!txt.trim()) return;
@@ -162,8 +143,6 @@
         setTimeout(()=>{ btn.textContent = old; }, 1500);
       });
     }
-
-    // مسح
     function doClear(){
       document.getElementById('codeInput').value='';
       document.getElementById('resultCard').style.display='none';
@@ -171,22 +150,17 @@
       document.getElementById('empty').style.display='block';
       document.getElementById('resText').innerHTML='<pre>—</pre>';
     }
-
-    // أحداث
     document.addEventListener('DOMContentLoaded', ()=>{
       loadDB();
-
       document.getElementById('searchBtn').addEventListener('click', doSearch);
       document.getElementById('copyBtn').addEventListener('click', doCopy);
       document.getElementById('clearBtn').addEventListener('click', doClear);
-      // Enter = بحث
       document.getElementById('codeInput').addEventListener('keydown', (e)=>{
         if(e.key === 'Enter'){ doSearch(); }
       });
     });
   </script>
 
-  <!-- فوتر بروابط لصفحات مستقلة -->
   <footer>
     <p>
       <a href="contact.html">تواصل معنا</a> |

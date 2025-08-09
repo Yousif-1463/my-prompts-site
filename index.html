@@ -134,20 +134,15 @@
       document.getElementById('notFound').style.display='none';
       document.getElementById('empty').style.display='block';
     };
+<footer>
+  <p>
+    <a href="contact.html" style="color:#7cf0bd;text-decoration:none;">تواصل معنا</a> |
+    <a href="about.html" style="color:#7cf0bd;text-decoration:none;">من نحن</a> |
+    <a href="privacy.html" style="color:#7cf0bd;text-decoration:none;">سياسة الخصوصية</a>
+  </p>
+</footer>
 
-    // روابط الفوتر
-    function showSection(name){
-      if(!DB || !DB.sections){alert("⚠ لا يوجد قسم بهذا الاسم.");return;}
-      const section=DB.sections.find(s=>s.name===name);
-      if(section){
-        alert(section.items[0].text);
-      }else{
-        alert("⚠ لم يتم العثور على هذا القسم في البيانات.");
-      }
-    }
-    document.getElementById('aboutLink').onclick=()=>showSection("من نحن");
-    document.getElementById('contactLink').onclick=()=>showSection("تواصل معنا");
-    document.getElementById('privacyLink').onclick=()=>showSection("سياسة الخصوصية");
   </script>
 </body>
+
 </html>

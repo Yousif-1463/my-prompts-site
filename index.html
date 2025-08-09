@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mr ChatGPT — أداة استخراج الأوامر</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#0f1226; --bg2:#1b1f3a; --bg3:#0a0c1a;
+      --card:#121528ee; --muted:#aab0d6; --text:#e8ecff; --accent:#6ea8ff; --accent-2:#7cf0bd; --danger:#ff6b6b;
+      --radius:18px; --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box;}
+    html,body{margin:0;padding:0;overflow-x:hidden;font-family:"Cairo",sans-serif;background:linear-gradient(160deg,var(--bg1),var(--bg2) 45%,var(--bg3));color:var(--text);}
+    header{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);background:rgba(10,12,26,.7);border-bottom:1px solid rgba(255,255,255,.06);}
+    .container{width:min(100%,1200px);margin:auto;padding:18px;display:flex;align-items:center;justify-content:space-between;}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800;}
+    .logo{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(180deg,rgba(110,168,255,.2),rgba(110,168,255,.08));border:1px solid rgba(110,168,255,.35);box-shadow:inset 0 0 12px rgba(255,255,255,.12),0 8px 22px rgba(62,106,214,.25);}
+    .logo svg{width:26px;height:26px;fill:none;stroke:var(--accent-2);stroke-width:2;}
+    main{padding:40px 18px 80px;}
+    .hero{text-align:center;max-width:800px;margin:auto;}
+    .hero h1{font-size:2rem;margin-bottom:10px;font-weight:900;}
+    .hero p{color:var(--muted);margin-bottom:22px;}
+    .search{display:flex;gap:10px;align-items:center;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:999px;padding:10px 12px;box-shadow:var(--shadow);max-width:600px;margin:auto;overflow:hidden;}
+    .search input{flex:1;background:transparent;border:none;outline:none;color:var(--text);padding:12px;font-size:1rem;min-width:0;}
+    .btn{padding:10px 16px;border-radius:999px;border:none;cursor:pointer;font-weight:700;color:white;background:linear-gradient(180deg,rgba(110,168,255,.4),rgba(110,168,255,.2));white-space:nowrap;}
+    .btn.secondary{background:linear-gradient(180deg,rgba(124,240,189,.4),rgba(124,240,189,.2));}
+    .result-wrap{max-width:800px;margin:26px auto;}
+    .card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;}
+    .prompt-text{background:#070914;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:14px;overflow:auto;max-height:400px;}
+    .prompt-text pre{margin:0;white-space:pre-wrap;word-wrap:break-word;}
+    .copy-btn{cursor:pointer;padding:12px 16px;border-radius:14px;background:linear-gradient(180deg,rgba(124,240,189,.24),rgba(124,240,189,.12));border:1px solid rgba(124,240,189,.45);color:var(--text);font-weight:800;display:inline-flex;align-items:center;gap:10px;}
+    .error-msg{color:var(--danger);padding:10px;font-weight:bold;}
+    footer{margin-top:60px;border-top:1px solid rgba(255,255,255,.08);background:rgba(10,12,26,.5);padding:20px;text-align:center;color:var(--muted);}
+    footer a{color:var(--accent);cursor:pointer;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <div class="brand">
+        <div class="logo" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" /></svg>
+        </div>
+        <span>Mr ChatGPT</span>
+      </div>
+    </div>
+  </header>
+  <main>
+    <section class="hero">
+      <h1>استخرج الأمر بكتابة الكود</h1>
+      <p>أوامر احترافية تساعدك في إنجاز مهامك وتوفير وقتك — واجهة عصرية، بسيطة، وسريعة الاستجابة.</p>
+      <div class="search">
+        <input id="codeInput" placeholder="(أكتب الكود)">
+        <button class="btn" id="searchBtn">بحث</button>
+        <button class="btn secondary" id="clearBtn">مسح</button>
+      </div>
+    </section>
+    <section class="result-wrap">
+      <div id="empty" class="card" style="padding:20px;text-align:center;color:var(--muted);">✨ اكتب الكود ثم اضغط «بحث» لعرض الأمر.</div>
+      <div id="resultCard" class="card" style="display:none;">
+        <div style="padding:16px;">
+          <div class="prompt-text" id="resText"><pre>—</pre></div>
+          <div style="text-align:right;margin-top:10px;"><button class="copy-btn" id="copyBtn">نسخ الأمر</button></div>
+        </div>
+      </div>
+      <div id="notFound" class="card" style="display:none;padding:20px;border-left:4px solid var(--danger);">لم نجد هذا الكود.</div>
+    </section>
+    <section class="result-wrap">
+      <div class="card"><div style="padding:16px;">
+        <h3>طريقة استخدام الـ PROMPT</h3>
+        <div id="howtoBody">جاري التحميل...</div>
+      </div></div>
+    </section>
+  </main>
+  <footer>
+    <a id="aboutLink">من نحن</a> | 
+    <a id="contactLink">تواصل معنا</a> | 
+    <a id="privacyLink">سياسة الخصوصية</a>
+  </footer>
+  <script>
+    let DB=null;
+    const resText=document.getElementById('resText'),
+          copyBtn=document.getElementById('copyBtn'),
+          howtoBody=document.getElementById('howtoBody');
+
+    // تحميل ملف JSON
+    fetch('prompts.json').then(r=>{
+      if(!r.ok) throw new Error("تعذر تحميل ملف البيانات");
+      return r.json();
+    }).then(data=>{
+      DB=data;
+      // طريقة الاستخدام
+      if(data.static_text && data.static_text.usage_guide){
+        howtoBody.textContent=data.static_text.usage_guide;
+      } else {
+        howtoBody.innerHTML='<div class="error-msg">⚠ لا يوجد نص لطريقة الاستخدام في الملف.</div>';
+      }
+    }).catch(err=>{
+      howtoBody.innerHTML='<div class="error-msg">⚠ خطأ: '+err.message+'</div>';
+    });
+
+    // البحث
+    document.getElementById('searchBtn').onclick=()=>{
+      if(!DB || !DB.prompts){alert("⚠ لم يتم تحميل البيانات بعد.");return;}
+      const code=document.getElementById('codeInput').value.trim().toUpperCase();
+      const found=DB.prompts.find(p=>p.code.toUpperCase()===code);
+      if(found){
+        document.getElementById('empty').style.display='none';
+        document.getElementById('notFound').style.display='none';
+        document.getElementById('resultCard').style.display='block';
+        resText.innerHTML='<pre>'+found.text+'</pre>';
+      }else{
+        document.getElementById('resultCard').style.display='none';
+        document.getElementById('empty').style.display='none';
+        document.getElementById('notFound').style.display='block';
+      }
+    };
+
+    // نسخ
+    copyBtn.onclick=()=>{
+      navigator.clipboard.writeText(resText.innerText);
+      copyBtn.textContent='تم النسخ ✔';
+      setTimeout(()=>copyBtn.textContent='نسخ الأمر',1500);
+    };
+
+    // مسح
+    document.getElementById('clearBtn').onclick=()=>{
+      document.getElementById('codeInput').value='';
+      document.getElementById('resultCard').style.display='none';
+      document.getElementById('notFound').style.display='none';
+      document.getElementById('empty').style.display='block';
+    };
+
+    // روابط الفوتر
+    function showSection(name){
+      if(!DB || !DB.sections){alert("⚠ لا يوجد قسم بهذا الاسم.");return;}
+      const section=DB.sections.find(s=>s.name===name);
+      if(section){
+        alert(section.items[0].text);
+      }else{
+        alert("⚠ لم يتم العثور على هذا القسم في البيانات.");
+      }
+    }
+    document.getElementById('aboutLink').onclick=()=>showSection("من نحن");
+    document.getElementById('contactLink').onclick=()=>showSection("تواصل معنا");
+    document.getElementById('privacyLink').onclick=()=>showSection("سياسة الخصوصية");
+  </script>
+</body>
+</html>

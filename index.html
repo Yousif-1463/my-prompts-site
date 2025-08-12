@@ -11,7 +11,7 @@
   html,body{height:100%}
   body{
     margin:0;
-    font-family: system-ui,-apple-system,"Segoe UI",Roboto,"Cairo","Tajawal",sans-serif;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Cairo", "Tajawal", sans-serif;
     background:
       radial-gradient(1200px 600px at 100% -20%, rgba(14,165,233,.20), transparent 60%),
       radial-gradient(1200px 600px at -10% 120%, rgba(99,102,241,.20), transparent 60%),
@@ -26,8 +26,8 @@
   .brand{display:flex;align-items:center;gap:10px}
   .logo{
     width:34px;height:34px;border-radius:10px;position:relative;
-    background: conic-gradient(from 0deg,#22d3ee,#a78bfa,#34d399,#22d3ee);
-    box-shadow:0 8px 28px rgba(79,70,229,.35), inset 0 1px 2px rgba(255,255,255,.3);
+    background: conic-gradient(from 0deg, #22d3ee, #a78bfa, #34d399, #22d3ee);
+    box-shadow: 0 8px 28px rgba(79,70,229,.35), inset 0 1px 2px rgba(255,255,255,.3);
   }
   .logo::before{
     content:"∞"; position:absolute; inset:0; display:grid; place-items:center;
@@ -45,41 +45,41 @@
   .row{display:flex;gap:10px;flex-wrap:wrap}
   input[type="text"]{
     flex:1;min-width:200px;background:#0b1220;border:1px solid rgba(255,255,255,.10);
-    border-radius:14px;padding:14px;color:#e5e7eb;outline:none;transition:border-color .2s, box-shadow .2s;
+    border-radius:14px;padding:14px;color:#e5e7eb;outline:none;transition: border-color .2s, box-shadow .2s;
   }
   input[type="text"]::placeholder{color:#93a3bd}
   input[type="text"]:focus{ border-color:#60a5fa; box-shadow:0 0 0 4px rgba(96,165,250,.15); }
 
   .btn{border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;color:#0b1220;position:relative;isolation:isolate;transition:transform .06s ease;}
   .btn:active{transform:translateY(1px)}
-  .btn-primary{background:linear-gradient(135deg,#22d3ee,#60a5fa 60%,#a78bfa);box-shadow:0 10px 30px rgba(80,120,255,.35), inset 0 1px 0 rgba(255,255,255,.5);}
+  .btn-primary{background: linear-gradient(135deg,#22d3ee,#60a5fa 60%,#a78bfa); box-shadow: 0 10px 30px rgba(80,120,255,.35), inset 0 1px 0 rgba(255,255,255,.5);}
   .btn-ghost{background:linear-gradient(180deg,#0d1426,#0b1220); color:#e5e7eb; border:1px solid rgba(255,255,255,.10);}
-  .btn-success{background:linear-gradient(135deg,#34d399,#22c55e 60%,#4ade80);box-shadow:0 10px 30px rgba(34,197,94,.30), inset 0 1px 0 rgba(255,255,255,.5);}
-  .btn-icon{padding:10px;border-radius:12px;width:48px;height:48px;display:grid;place-items:center}
+  .btn-success{background: linear-gradient(135deg,#34d399,#22c55e 60%,#4ade80); box-shadow:0 10px 30px rgba(34,197,94,.30), inset 0 1px 0 rgba(255,255,255,.5);}
+  .btn-icon{padding:10px;border-radius:12px; width:48px; height:48px; display:grid; place-items:center}
 
-  .result{margin-top:16px;background:#0b1220;border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:18px;line-height:1.85}
+  .result{margin-top:16px;background:#0b1220;border:1px solid rgba(255,255,255,.06); border-radius:18px;padding:18px;line-height:1.85}
   .result h3{margin:0 0 8px;font-size:18px;color:#c7d2fe}
   .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
 
   /* كتاب — غلاف أكبر وواضح */
   .book{
-    margin-top:22px;display:grid;gap:16px;grid-template-columns:1fr;align-items:center;
+    margin-top:22px;display:grid;gap:16px;grid-template-columns: 1fr;align-items:center;
     background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;
   }
   .book-visual{
-    border-radius:18px;border:1px solid rgba(255,255,255,.08);overflow:hidden;
+    border-radius:18px;border:1px solid rgba(255,255,255,.08); overflow:hidden;
     box-shadow:0 10px 30px rgba(0,0,0,.25);
   }
-  .book-visual img{width:100%;height:auto;display:block}
+  .book-visual img{width:100%; height:auto; display:block}
   .book-body{display:grid;gap:10px}
   @media (min-width:720px){
-    .book{grid-template-columns:320px 1fr}
+    .book{grid-template-columns: 320px 1fr}
     .book-visual{height:100%}
-    .book-visual img{height:100%;object-fit:cover}
+    .book-visual img{height:100%; object-fit:cover}
   }
 
   .price{display:flex;align-items:center;gap:12px;margin-top:4px;flex-wrap:wrap}
-  .price .old{color:#9ca3af;text-decoration:line-through;font-weight:700}
+  .price .old{color:#9ca3af;text-decoration: line-through; font-weight:700}
   .price .now{font-size:26px;font-weight:900;background:linear-gradient(90deg,#f59e0b,#fb7185);-webkit-background-clip:text;background-clip:text;color:transparent;}
   .countdown{font-weight:800;color:#fca5a5;display:inline-flex;gap:10px;align-items:center}
   .chip{display:inline-flex;align-items:center;gap:6px;color:#fde68a;background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);padding:.35rem .6rem;border-radius:999px;font-weight:800;font-size:12px}
@@ -87,18 +87,28 @@
   .btns{display:flex;gap:10px;flex-wrap:wrap}
   .btn-small{padding:10px 14px;border-radius:14px}
 
-  .panel{margin-top:22px;background:#0b1220;border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:16px;line-height:1.9}
+  .panel{margin-top:22px;background:#0b1220;border:1px solid rgba(255,255,255,.06); border-radius:16px;padding:16px;line-height:1.9}
 
   .links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px}
-  .link-btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.10);background:linear-gradient(180deg,#0d1426,#0b1220);color:#e5e7eb;font-weight:800;cursor:pointer}
+  .link-btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.10); background:linear-gradient(180deg,#0d1426,#0b1220);color:#e5e7eb;font-weight:800;cursor:pointer}
 
-  .social{margin:22px 0 6px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:16px;padding:10px}
-  .social a{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:999px;background:linear-gradient(135deg,#22d3ee,#60a5fa 60%,#a78bfa);color:#0b1220;font-weight:900;box-shadow:0 8px 24px rgba(96,165,250,.3), inset 0 1px 0 rgba(255,255,255,.6)}
+  .social{
+    margin:22px 0 6px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
+    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
+    border-radius:16px;padding:10px;
+  }
+  .social a{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 14px;border-radius:999px;
+    background:linear-gradient(135deg, #22d3ee, #60a5fa 60%, #a78bfa);
+    color:#0b1220;font-weight:900;
+    box-shadow:0 8px 24px rgba(96,165,250,.3), inset 0 1px 0 rgba(255,255,255,.6);
+  }
   .social svg{width:18px;height:18px}
 
   .sheet{position:fixed;inset:0;display:none;place-items:end;background:rgba(0,0,0,.45);z-index:50}
   .sheet.active{display:grid}
-  .sheet-card{background:#0b1220;border-radius:18px 18px 0 0;border:1px solid rgba(255,255,255,.08);padding:16px 16px 26px;max-height:80vh;overflow:auto}
+  .sheet-card{background:#0b1220;border-radius:18px 18px 0 0;border:1px solid rgba(255,255,255,.08); padding:16px 16px 26px;max-height:80vh;overflow:auto}
   .sheet h3{margin:0 0 8px}
   .sheet .back{margin-top:12px}
   footer{margin:18px 0;color:#94a3b8;text-align:center;font-size:13px}
@@ -108,7 +118,7 @@
 <body>
   <div class="container">
 
-    <!-- Header -->
+    <!-- Header: شعار فقط -->
     <header>
       <div class="brand">
         <div class="logo" aria-hidden="true"></div>
@@ -122,15 +132,15 @@
 
       <div class="row" role="search">
         <input id="codeInput" type="text" inputmode="latin" placeholder="أكتب الكود — مثال: MY1" aria-label="حقل البحث عن الكود" />
-        <button id="btnSearch" class="btn btn-primary" aria-label="بحث">بحث</button>
-        <button id="btnClear" class="btn btn-ghost" aria-label="مسح">مسح</button>
+        <button id="btnSearch" class="btn btn-primary" aria-label="بحث عن الكود">بحث</button>
+        <button id="btnClear" class="btn btn-ghost" aria-label="مسح الحقل">مسح</button>
       </div>
 
       <div id="resultBox" class="result hidden" role="region" aria-live="polite">
         <h3 id="resTitle">—</h3>
         <div id="resText" class="muted">—</div>
         <div class="toolbar">
-          <!-- زر نسخ (أيقونة فقط) -->
+          <!-- زر نسخ أيقونة فقط -->
           <button id="btnCopyText" class="btn btn-success btn-icon" aria-label="نسخ الأمر">
             <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
               <rect x="9" y="9" width="11" height="11" rx="2" stroke="#0b1220" stroke-width="2"/>
@@ -144,7 +154,7 @@
       <div id="status" class="muted hidden" style="margin-top:8px"></div>
     </section>
 
-    <!-- كتاب -->
+    <!-- كتاب: غلاف كبير + أزرار محسنة -->
     <section class="book" aria-labelledby="bookTitle">
       <div class="book-visual">
         <img id="bookImg" src="./book.jpg" alt="غلاف الكتاب" />
@@ -184,10 +194,10 @@
       </p>
     </section>
 
-    <!-- Social -->
+    <!-- Social Banner -->
     <div class="social" aria-label="تابعنا">
       <a href="https://wa.me/249111343596?text=%D8%A7%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D9%83%D8%AA%D8%A7%D8%A8" target="_blank" rel="noopener" title="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15l-1 3.7 3.8-.9A10 10 0 1 0 12 2Z" stroke="#0b1220" stroke-width="2"/><path d="M8.5 9.5c0 3 3 5.5 5.5 5.5.7 0 1.6-.3 2.1-.8l.2-.2c.3-.3.4-.8.1-1.1l-1-1a.9.9 0 0 0-1.1-.1l-.5.2c-.5.2-1-.1-1.5-.5l-1-1c-.4-.5-.7-1-.5-1.5l.2-.5c.1-.4 0-.8-.2-1.1l-1-1c-.3-.3-.8-.2-1.1.1l-.2.2c-.5.5-.8 1.4-.8 2.1Z" fill="#0b1220"/></svg>
+        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15l-1 3.7 3.8-.9A10 10 0 1 0 12 2Z" stroke="#0b1220" stroke-width="2"/><path d="M8.5 9.5c0 3 3 5.5 5.5 5.5.7 0 1.6-.3 2.1-.8l.2-.2c.3-.3.4-.8.1-1.1l-1-1a.9.9 0 0 0-1.1-.1l-.5.2c-.5.2-1-.1-1.5-.5ل-1-1c-.4-.5-.7-1-.5-1.5l.2-.5c.1-.4 0-.8-.2-1.1l-1-1c-.3-.3-.8-.2-1.1.1l-.2.2c-.5.5-.8 1.4-.8 2.1Z" fill="#0b1220"/></svg>
         واتساب
       </a>
       <a href="#" title="Telegram">
@@ -231,42 +241,38 @@
 
 <script>
   const PROMPTS_URL = './prompts.json';
-  const PHONE = '249111343596'; // بدون +
-  const TEXT  = 'اريد الكتاب';
+  const WHATSAPP_NUMBER = '249111343596';
+  const WHATSAPP_MESSAGE = encodeURIComponent('اريد الكتاب');
 
   let PROMPTS=[]; let loaded=false;
 
   const $ = (s)=>document.querySelector(s);
   const codeInput=$('#codeInput'), btnSearch=$('#btnSearch'), btnClear=$('#btnClear');
   const resultBox=$('#resultBox'), resTitle=$('#resTitle'), resText=$('#resText');
-  const emptyBox=$('#emptyBox'), statusEl=$('#status'), countdown=$('#countdown'), buyBtn=$('#buyBtn');
+  const emptyBox=$('#emptyBox'), statusEl=$('#status'), buyBtn=$('#buyBtn'), countdown=$('#countdown');
 
   function show(el){ el.classList.remove('hidden'); } 
   function hide(el){ el.classList.add('hidden'); }
   function setStatus(msg,type='info'){ statusEl.textContent=msg||''; statusEl.style.color=(type==='error')?'#fca5a5':'#94a3b8'; if(msg)show(statusEl);else hide(statusEl); }
-  const normalize=(v)=>String(v||'').replace(/[\u200E\u200F\u202A-\u202E]/g,'').trim().toUpperCase();
+  const normalize=(v)=>String(v||'').replace(/[\u200E\u200F\u202A-\u202E]/g,'').replace(/\s+/g,'').replace(/[^\x00-\x7F]/g,'').toUpperCase();
   const debounce=(fn,ms)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); } };
 
   async function loadPrompts(){
     if(loaded) return PROMPTS;
     try{
-      const r=await fetch(PROMPTS_URL,{cache:'no-store'});
-      if(!r.ok) throw 0;
-      const j=await r.json();
-      PROMPTS=Array.isArray(j?.prompts)?j.prompts:[];
-      loaded=true;
+      setStatus('...جارِ تحميل البيانات');
+      const r=await fetch(PROMPTS_URL,{cache:'no-store'}); if(!r.ok) throw 0;
+      const j=await r.json(); PROMPTS=Array.isArray(j?.prompts)?j.prompts:[]; loaded=true; setStatus('');
     }catch{ setStatus('تعذر تحميل prompts.json — تأكد من رفعه بجوار index.html','error'); PROMPTS=[]; loaded=true; }
     return PROMPTS;
   }
 
   async function search(){
-    const code=normalize(codeInput.value);
+    const code=normalize(codeInput.value); 
     if(!code){ hide(resultBox); show(emptyBox); setStatus(''); return; }
-    const data=await loadPrompts();
-    const item=data.find(p=>String(p.code).toUpperCase()===code);
+    const data=await loadPrompts(); const item=data.find(p=>String(p.code).toUpperCase()===code);
     if(!item){ hide(resultBox); show(emptyBox); setStatus(`لم يتم العثور على الكود: ${code}`,'error'); return; }
-    resTitle.textContent=item.title||'بدون عنوان';
-    resText.textContent=item.text||'—';
+    resTitle.textContent=item.title||'بدون عنوان'; resText.textContent=item.text||'—';
     show(resultBox); hide(emptyBox); setStatus('');
   }
 
@@ -274,49 +280,36 @@
   $('#btnCopyText')?.addEventListener('click',()=>{ const t=resText.textContent.trim(); if(!t){ setStatus('لا يوجد نص لنسخه','error'); return;} copy(t); });
 
   btnSearch.addEventListener('click',search);
-  codeInput.addEventListener('input', debounce(search, 220)); // يظهر أثناء الكتابة
+  codeInput.addEventListener('input', debounce(()=>search(), 250));
   codeInput.addEventListener('keydown',e=>{ if(e.key==='Enter') search(); });
   btnClear.addEventListener('click',()=>{ codeInput.value=''; hide(resultBox); show(emptyBox); setStatus(''); codeInput.focus(); });
 
-  // واتساب: intent لأندرويد + deep-link ل iOS + سقوط تلقائي للويب + دعم المتصفحات داخل التطبيقات
-  (function initWhatsApp(){
-    const waDeep   = `whatsapp://send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
-    const waApi    = `https://api.whatsapp.com/send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
-    const waMe     = `https://wa.me/${PHONE}?text=${encodeURIComponent(TEXT)}`;
-    const waIntent = `intent://send/?phone=${PHONE}&text=${encodeURIComponent(TEXT)}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
+  function updateWA(){
+    const wa1=`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
+    const wa2=`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${WHATSAPP_MESSAGE}`;
+    buyBtn.href=wa1;
+    buyBtn.addEventListener('click', ()=>{ setTimeout(()=>{ if(document.visibilityState==='visible') location.href=wa2; }, 600); });
+  }
 
-    buyBtn.href = waApi; // للنسخ/الضغط المطوّل
-    buyBtn.rel  = "noopener noreferrer";
+  // زر تفاصيل: إظهار/إخفاء
+  document.getElementById('btnDetails').addEventListener('click', ()=>{
+    document.getElementById('detailsBox').classList.toggle('hidden');
+  });
 
-    function openWA(e){
-      e.preventDefault();
-      const ua = navigator.userAgent.toLowerCase();
-      const isAndroid = /android/.test(ua);
-      const isIOS     = /iphone|ipad|ipod/.test(ua);
-      const inApp     = /(fb_iab|instagram|tiktok|snapchat|pinterest|linkedinapp)/.test(ua);
-
-      if (inApp) { window.open(waApi, '_blank', 'noopener'); return; }
-      if (isAndroid) { window.location.href = waIntent; setTimeout(()=>{ window.location.href = waMe; }, 1200); return; }
-      if (isIOS)     { window.location.href = waDeep;   setTimeout(()=>{ window.location.href = waMe; }, 1200); return; }
-      window.location.href = waMe;
-    }
-    buyBtn.addEventListener('click', openWA);
+  // صورة الكتاب: جرّب نسبي ثم مطلق
+  (function(){
+    const img=document.getElementById('bookImg');
+    img.addEventListener('error', ()=>{ img.src='/book.jpg'; }, {once:true});
   })();
 
-  // زر تفاصيل
-  $('#btnDetails').addEventListener('click',()=>{ $('#detailsBox').classList.toggle('hidden'); });
-
-  // صورة الكتاب: بديل مسار مطلق إذا فشل النسبي
-  (function(){ const img=$('#bookImg'); img.addEventListener('error',()=>{ img.src='/book.jpg'; },{once:true}); })();
-
-  // عداد العرض — يعيد نفسه عند الانتهاء
+  // عداد العرض — يعيد من جديد عند الانتهاء
   const SALE_KEY='saleEndsAt', SALE_MS=48*60*60*1000;
   function initSale(){
     let ends=+localStorage.getItem(SALE_KEY);
-    if(!ends || ends<Date.now()){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY,String(ends)); }
+    if(!ends || ends<Date.now()){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY, String(ends)); }
     function tick(){
       let d=ends-Date.now();
-      if(d<=0){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY,String(ends)); d=ends-Date.now(); }
+      if(d<=0){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY, String(ends)); d=ends-Date.now(); }
       const h=String(Math.floor(d/3600000)).padStart(2,'0');
       const m=String(Math.floor((d%3600000)/60000)).padStart(2,'0');
       const s=String(Math.floor((d%60000)/1000)).padStart(2,'0');
@@ -325,7 +318,7 @@
     tick(); setInterval(tick,1000);
   }
 
-  // شيت الروابط
+  // شييت الروابط السفلية
   const sheet=$('#sheet'), sheetTitle=$('#sheetTitle'), sheetContent=$('#sheetContent'); 
   $('#sheetBack').addEventListener('click',()=>sheet.classList.remove('active')); 
   sheet.addEventListener('click',e=>{ if(e.target===sheet) sheet.classList.remove('active'); });
@@ -350,7 +343,7 @@
 
   document.addEventListener('DOMContentLoaded', async ()=>{
     document.getElementById('y').textContent=new Date().getFullYear();
-    initSale();
+    updateWA(); initSale();
     const t=setTimeout(()=>{ if(!loaded && !PROMPTS.length){ PROMPTS=[{code:'MY1',title:'تتبع تغيّرات الكائنات العميقة في JavaScript',text:'اكتب مكتبة JavaScript صغيرة تمكّن من تتبع تغيّرات الكائنات العميقة (deep observer) باستخدام Proxy و recursive reflection.'}]; loaded=true; console.warn('fallback data in use — ارفع prompts.json'); } },1200);
     await loadPrompts().catch(()=>{}); clearTimeout(t);
   });

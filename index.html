@@ -1,352 +1,341 @@
-<!doctype html>
-<html lang="ar" dir="rtl">
+<!DOCTYPE html><html lang="ar" dir="rtl">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mr ChatGPT — استخرج الأمر بكتابة الكود</title>
-<meta name="description" content="اكتب كود مثل MY1 لاسترجاع الأمر من prompts.json ثم انسخه فوراً." />
-<meta name="theme-color" content="#0ea5ea" />
-<style>
-  *,*::before,*::after{box-sizing:border-box}
-  html,body{height:100%}
-  body{
-    margin:0;
-    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Cairo", "Tajawal", sans-serif;
-    background:
-      radial-gradient(1200px 600px at 100% -20%, rgba(14,165,233,.20), transparent 60%),
-      radial-gradient(1200px 600px at -10% 120%, rgba(99,102,241,.20), transparent 60%),
-      linear-gradient(180deg, #0b1020 0%, #0f172a 100%);
-    color:#e5e7eb; overflow-x:hidden;
-  }
-  a{color:inherit;text-decoration:none}
-  img{max-width:100%;display:block}
-  .container{max-width:980px;margin-inline:auto;padding:20px}
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Mr ChatGPT — صفحة هبوط لبيع كتاب</title>
+  <meta name="description" content="أتقن محتوى شهر كامل من الدراسة في 30 دقيقة فقط — عرض محدود مع خصم 80%" />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-start:#0f172a; /* slate-900 */
+      --bg-end:#111827;   /* gray-900 */
+      --brand:#22d3ee;    /* cyan-400 */
+      --brand-2:#6366f1;  /* indigo-500 */
+      --accent:#f59e0b;   /* amber-500 */
+      --success:#10b981;  /* emerald-500 */
+      --danger:#ef4444;   /* red-500 */
+      --muted:#94a3b8;    /* slate-400 */
+      --card:rgba(255,255,255,0.06);
+      --stroke:rgba(255,255,255,0.12);
+      --glow: 0 0 0 1px rgba(255,255,255,0.06), 0 15px 40px rgba(34,211,238,0.08), 0 10px 25px rgba(99,102,241,0.12);
+      --radius:22px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:'Cairo','Inter',system-ui,-apple-system,segui UI,Roboto,Arial,sans-serif;
+      background: radial-gradient(1200px 800px at 80% -10%, rgba(99,102,241,0.25), transparent 60%),
+                  radial-gradient(900px 700px at 10% 0%, rgba(34,211,238,0.2), transparent 55%),
+                  linear-gradient(180deg, var(--bg-start), var(--bg-end));
+      color:#f8fafc; /* slate-50 */
+      overflow-x:hidden;
+    }
+    a{color:inherit;text-decoration:none}.container{width:min(1100px, 94vw); margin-inline:auto; padding:20px 0 60px}
 
-  header{display:flex;align-items:center;justify-content:flex-end;gap:12px;margin:6px 0 14px}
-  .brand{display:flex;align-items:center;gap:10px}
-  .logo{
-    width:34px;height:34px;border-radius:10px;position:relative;
-    background: conic-gradient(from 0deg, #22d3ee, #a78bfa, #34d399, #22d3ee);
-    box-shadow: 0 8px 28px rgba(79,70,229,.35), inset 0 1px 2px rgba(255,255,255,.3);
-  }
-  .logo::before{
-    content:"∞"; position:absolute; inset:0; display:grid; place-items:center;
-    color:#0b1220; font-weight:900; font-size:20px; filter:drop-shadow(0 1px 1px rgba(255,255,255,.65));
-  }
-  .brand-name{font-weight:800;letter-spacing:.4px}
+/* Header */
+header{
+  display:flex; align-items:center; justify-content:space-between; gap:16px;
+  padding:14px 18px; margin:16px auto 22px; width: min(1100px, 96vw);
+  background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+  border:1px solid var(--stroke); border-radius: calc(var(--radius) - 6px);
+  box-shadow: var(--glow);
+  backdrop-filter: saturate(140%) blur(14px);
+}
+.brand{display:flex; align-items:center; gap:12px; font-weight:900; letter-spacing:0.4px}
+.brand .logo{position:relative; width:42px; height:42px; border-radius:50%;
+  background: conic-gradient(from 220deg, var(--brand), var(--brand-2));
+  box-shadow: 0 10px 22px rgba(34,211,238,0.28), 0 6px 16px rgba(99,102,241,0.25);
+  display:grid; place-items:center; overflow:hidden;
+}
+.brand .logo svg{filter:drop-shadow(0 2px 6px rgba(0,0,0,0.45))}
+.brand span{font-size:1.25rem}
 
-  .hero{
-    background: rgba(255,255,255,.02);
-    border:1px solid rgba(255,255,255,.06);
-    border-radius:22px; padding:22px; box-shadow:0 10px 30px rgba(0,0,0,.25);
-  }
-  h1{margin:0 0 6px;font-size:28px}
-  .subtitle{margin:0 0 14px;color:#a5b4fc}
-  .row{display:flex;gap:10px;flex-wrap:wrap}
-  input[type="text"]{
-    flex:1;min-width:200px;background:#0b1220;border:1px solid rgba(255,255,255,.10);
-    border-radius:14px;padding:14px;color:#e5e7eb;outline:none;transition: border-color .2s, box-shadow .2s;
-  }
-  input[type="text"]::placeholder{color:#93a3bd}
-  input[type="text"]:focus{ border-color:#60a5fa; box-shadow:0 0 0 4px rgba(96,165,250,.15); }
+/* Hero */
+.hero{
+  display:grid; gap:22px; align-items:stretch;
+  grid-template-columns:1fr; margin-top:10px;
+}
+@media (min-width: 880px){
+  .hero{grid-template-columns:1.05fr 0.95fr}
+}
 
-  .btn{border:0;border-radius:14px;padding:12px 16px;font-weight:800;cursor:pointer;color:#0b1220;position:relative;isolation:isolate;transition:transform .06s ease;}
-  .btn:active{transform:translateY(1px)}
-  .btn-primary{background: linear-gradient(135deg,#22d3ee,#60a5fa 60%,#a78bfa); box-shadow: 0 10px 30px rgba(80,120,255,.35), inset 0 1px 0 rgba(255,255,255,.5);}
-  .btn-ghost{background:linear-gradient(180deg,#0d1426,#0b1220); color:#e5e7eb; border:1px solid rgba(255,255,255,.10);}
-  .btn-success{background: linear-gradient(135deg,#34d399,#22c55e 60%,#4ade80); box-shadow:0 10px 30px rgba(34,197,94,.30), inset 0 1px 0 rgba(255,255,255,.5);}
-  .btn-icon{padding:10px;border-radius:12px; width:48px; height:48px; display:grid; place-items:center}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.03));
+  border:1px solid var(--stroke); border-radius:var(--radius); padding:18px; box-shadow:var(--glow);
+  backdrop-filter:saturate(150%) blur(12px);
+}
+.shine-btn{
+  position:relative; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+  border:0; padding:14px 18px; font-weight:800; font-size:1.05rem; border-radius:16px; color:#0b1220;
+  background: linear-gradient(135deg, #ffffff, #e9f8ff);
+  box-shadow: 0 10px 30px rgba(34,211,238,0.25), inset 0 -8px 14px rgba(0,0,0,0.08);
+  cursor:pointer; overflow:hidden; isolation:isolate; transition: transform .15s ease, filter .2s ease;
+}
+.shine-btn::before{
+  content:""; position:absolute; inset:-2px; border-radius:18px; z-index:-1;
+  background: linear-gradient(120deg, var(--brand), var(--brand-2));
+  filter: blur(12px); opacity:.8;
+}
+.shine-btn::after{
+  content:""; position:absolute; top:-120%; left:-40%; width:60%; height:300%; transform:rotate(25deg);
+  background: radial-gradient(130px 220px at 50% 50%, rgba(255,255,255,0.75), transparent 60%);
+  animation: sweep 4.2s ease-in-out infinite;
+}
+.shine-btn:active{ transform: translateY(1px) }
+@keyframes sweep{ 0%{left:-70%} 50%{left:120%} 100%{left:120%} }
 
-  .result{margin-top:16px;background:#0b1220;border:1px solid rgba(255,255,255,.06); border-radius:18px;padding:18px;line-height:1.85}
-  .result h3{margin:0 0 8px;font-size:18px;color:#c7d2fe}
-  .toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.price{
+  display:flex; align-items:center; gap:12px; flex-wrap:wrap; margin:8px 0 10px
+}
+.price-now{font-size:clamp(1.6rem, 3.8vw, 2.4rem); font-weight:900; color:#fff}
+.price-old{font-size:clamp(1rem, 2.6vw, 1.25rem); color:var(--muted); text-decoration:line-through; opacity:.9}
+.badge{font-weight:900; font-size:.95rem; padding:6px 10px; border-radius:999px; background:linear-gradient(120deg, #22d3ee, #6366f1);}
 
-  /* كتاب — غلاف أكبر وواضح */
-  .book{
-    margin-top:22px;display:grid;gap:16px;grid-template-columns: 1fr;align-items:center;
-    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);border-radius:18px;padding:16px;
-  }
-  .book-visual{
-    border-radius:18px;border:1px solid rgba(255,255,255,.08); overflow:hidden;
-    box-shadow:0 10px 30px rgba(0,0,0,.25);
-  }
-  .book-visual img{width:100%; height:auto; display:block}
-  .book-body{display:grid;gap:10px}
-  @media (min-width:720px){
-    .book{grid-template-columns: 320px 1fr}
-    .book-visual{height:100%}
-    .book-visual img{height:100%; object-fit:cover}
-  }
+.limited{display:flex; align-items:center; gap:10px; color:#fef3c7; font-weight:700}
+.countdown{font-variant-numeric:tabular-nums; display:inline-flex; gap:8px}
+.count-box{min-width:55px; text-align:center; padding:8px 10px; border-radius:12px; background:rgba(2,6,23,.55); border:1px solid var(--stroke)}
+.count-box .num{display:block; font-size:1.2rem; font-weight:900}
+.count-box .lbl{display:block; font-size:.72rem; opacity:.8}
 
-  .price{display:flex;align-items:center;gap:12px;margin-top:4px;flex-wrap:wrap}
-  .price .old{color:#9ca3af;text-decoration: line-through; font-weight:700}
-  .price .now{font-size:26px;font-weight:900;background:linear-gradient(90deg,#f59e0b,#fb7185);-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .countdown{font-weight:800;color:#fca5a5;display:inline-flex;gap:10px;align-items:center}
-  .chip{display:inline-flex;align-items:center;gap:6px;color:#fde68a;background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.25);padding:.35rem .6rem;border-radius:999px;font-weight:800;font-size:12px}
+.book-wrap{position:relative; border-radius:18px; overflow:hidden; border:1px solid var(--stroke);
+  background:linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+  box-shadow: var(--glow);
+}
+.book-wrap img{display:block; width:100%; height:auto}
 
-  .btns{display:flex;gap:10px;flex-wrap:wrap}
-  .btn-small{padding:10px 14px;border-radius:14px}
+.payments{display:flex; gap:10px; flex-wrap:wrap; margin-top:10px}
+.pay{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:rgba(255,255,255,0.08); border:1px solid var(--stroke)}
+.pay svg{width:18px; height:18px}
 
-  .panel{margin-top:22px;background:#0b1220;border:1px solid rgba(255,255,255,.06); border-radius:16px;padding:16px;line-height:1.9}
+.whats-cta{margin-top:14px; display:flex; gap:10px; align-items:center; flex-wrap:wrap}
 
-  .links{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin:24px 0 8px}
-  .link-btn{padding:10px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.10); background:linear-gradient(180deg,#0d1426,#0b1220);color:#e5e7eb;font-weight:800;cursor:pointer}
+/* Phone Box */
+.phone-box{margin-top:10px}
+.phone-head{margin-bottom:10px; color:#c7d2fe; font-weight:800}
+.num-box{display:flex; align-items:stretch; gap:8px}
+.num{flex:1; background:rgba(255,255,255,0.07); border:1px solid var(--stroke); border-radius:14px; padding:14px; font-weight:800; letter-spacing:.4px}
+.copy-btn{width:50px; min-width:50px; aspect-ratio:1/1; border-radius:14px; border:0; cursor:pointer; background:linear-gradient(120deg, #22d3ee, #6366f1);
+  display:grid; place-items:center; box-shadow:var(--glow); position:relative}
+.copy-btn:active{transform:translateY(1px)}
+.toast{position:fixed; inset-inline:0; top:16px; margin:auto; width:max-content; max-width:88vw; background:#052e2b; color:#d1fae5; border:1px solid rgba(16,185,129,.35);
+  padding:10px 14px; border-radius:12px; display:none; z-index:9999; box-shadow:0 10px 30px rgba(0,0,0,.25)}
 
-  .social{
-    margin:22px 0 6px;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;
-    background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.06);
-    border-radius:16px;padding:10px;
-  }
-  .social a{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:10px 14px;border-radius:999px;
-    background:linear-gradient(135deg, #22d3ee, #60a5fa 60%, #a78bfa);
-    color:#0b1220;font-weight:900;
-    box-shadow:0 8px 24px rgba(96,165,250,.3), inset 0 1px 0 rgba(255,255,255,.6);
-  }
-  .social svg{width:18px;height:18px}
+/* Description */
+.desc{line-height:1.9; color:#e5e7eb}
+.desc h2{margin:6px 0 12px; font-size:clamp(1.2rem, 3.6vw, 1.7rem)}
+.desc p{margin:6px 0}
+.desc ul{padding:0 20px; margin:10px 0}
+.desc li{margin:8px 0}
 
-  .sheet{position:fixed;inset:0;display:none;place-items:end;background:rgba(0,0,0,.45);z-index:50}
-  .sheet.active{display:grid}
-  .sheet-card{background:#0b1220;border-radius:18px 18px 0 0;border:1px solid rgba(255,255,255,.08); padding:16px 16px 26px;max-height:80vh;overflow:auto}
-  .sheet h3{margin:0 0 8px}
-  .sheet .back{margin-top:12px}
-  footer{margin:18px 0;color:#94a3b8;text-align:center;font-size:13px}
-  .hidden{display:none}
-</style>
+/* Footer Links */
+footer{margin-top:36px; padding-top:16px; border-top:1px dashed var(--stroke); color:#e2e8f0}
+.links{display:flex; gap:12px; flex-wrap:wrap}
+.link-pill{padding:10px 14px; border-radius:999px; background:rgba(255,255,255,0.06); border:1px solid var(--stroke); cursor:pointer; font-weight:800}
+
+/* Overlay */
+.overlay{position:fixed; inset:0; background:rgba(2,6,23,.65); display:none; z-index:50; align-items:center; justify-content:center; padding:18px}
+.overlay.active{display:flex}
+.sheet{width:min(720px, 96vw); background:linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.04)); border:1px solid var(--stroke); border-radius:18px; box-shadow: var(--glow);
+  padding:16px 16px 18px}
+.sheet h3{margin:8px 6px 10px}
+.sheet p{line-height:1.9; color:#f1f5f9}
+.back-btn{margin-top:14px; border:0; padding:10px 14px; border-radius:12px; font-weight:800; cursor:pointer; background:linear-gradient(120deg, #22d3ee, #6366f1)}
+
+/* Utilities */
+.sr{position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap}
+
+  </style>
 </head>
 <body>
-  <div class="container">
-
-    <!-- Header: شعار فقط -->
-    <header>
-      <div class="brand">
-        <div class="logo" aria-hidden="true"></div>
-        <div class="brand-name">Mr ChatGPT</div>
+  <div class="toast" id="toast">تم نسخ الرقم ✅</div>
+  <header>
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <!-- Infinity Icon -->
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12 12c-2.5 2.8-4 4-6 4a4 4 0 110-8c2 0 3.5 1.2 6 4zm0 0c2.5-2.8 4-4 6-4a4 4 0 110 8c-2 0-3.5-1.2-6-4z" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
-    </header>
-
+      <span>Mr ChatGPT</span>
+    </div>
+    <div style="opacity:.85; font-weight:700">عرض خاص لفترة محدودة</div>
+  </header>  <main class="container">
     <section class="hero">
-      <h1>أستخرج الأمر بكتابة الكود</h1>
-      <p class="subtitle">أوامر احترافية تساعدك في إنجاز مهامك وتوفير وقتك.</p>
-
-      <div class="row" role="search">
-        <input id="codeInput" type="text" inputmode="latin" placeholder="أكتب الكود — مثال: MY1" aria-label="حقل البحث عن الكود" />
-        <button id="btnSearch" class="btn btn-primary" aria-label="بحث عن الكود">بحث</button>
-        <button id="btnClear" class="btn btn-ghost" aria-label="مسح الحقل">مسح</button>
-      </div>
-
-      <div id="resultBox" class="result hidden" role="region" aria-live="polite">
-        <h3 id="resTitle">—</h3>
-        <div id="resText" class="muted">—</div>
-        <div class="toolbar">
-          <!-- زر نسخ أيقونة فقط -->
-          <button id="btnCopyText" class="btn btn-success btn-icon" aria-label="نسخ الأمر">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" aria-hidden="true">
-              <rect x="9" y="9" width="11" height="11" rx="2" stroke="#0b1220" stroke-width="2"/>
-              <rect x="4" y="4" width="11" height="11" rx="2" stroke="#0b1220" stroke-width="2"/>
-            </svg>
-          </button>
+      <!-- Left: Book + Price -->
+      <div class="card">
+        <div class="book-wrap">
+          <img src="./book.jpg" alt="غلاف الكتاب" />
         </div>
-      </div>
-
-      <div id="emptyBox" class="muted" style="margin-top:10px">اكتب كودًا ثم اضغط “بحث”.</div>
-      <div id="status" class="muted hidden" style="margin-top:8px"></div>
-    </section>
-
-    <!-- كتاب: غلاف كبير + أزرار محسنة -->
-    <section class="book" aria-labelledby="bookTitle">
-      <div class="book-visual">
-        <img id="bookImg" src="./book.jpg" alt="غلاف الكتاب" />
-      </div>
-      <div class="book-body">
-        <div class="chip">العرض لفترة محدودة</div>
-        <h2 id="bookTitle" style="margin:6px 0 6px">كتاب: إتقان شهر دراسة في 30 دقيقة</h2>
-        <p class="muted" style="margin:0">تعلّم بسرعة وذكاء—خطوات عملية تركّز على النتائج بدل الإرهاق.</p>
         <div class="price">
-          <span class="old">$5</span>
-          <span class="now">$1</span>
-          <span class="countdown" id="countdown" aria-label="الوقت المتبقي">00:00:00</span>
+          <div class="price-now">$1</div>
+          <div class="price-old">$5</div>
+          <div class="badge">خصم 80%</div>
         </div>
-
-        <div class="btns" style="margin-top:6px">
-          <button id="btnDetails" class="btn btn-ghost btn-small">تفاصيل</button>
-          <a id="buyBtn" class="btn btn-primary btn-small" href="#" target="_blank" rel="noopener">شراء عبر واتساب</a>
+        <div class="limited" aria-live="polite">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M12 8v5l3 2" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <span>العرض لفترة محدودة</span>
         </div>
+        <div class="countdown" id="countdown" style="margin-top:10px">
+          <div class="count-box"><span class="num" id="d">00</span><span class="lbl">يوم</span></div>
+          <div class="count-box"><span class="num" id="h">00</span><span class="lbl">ساعة</span></div>
+          <div class="count-box"><span class="num" id="m">00</span><span class="lbl">دقيقة</span></div>
+          <div class="count-box"><span class="num" id="s">00</span><span class="lbl">ثانية</span></div>
+        </div><div class="payments" aria-label="وسائل الدفع المتاحة">
+      <span class="pay" title="Binance">
+        <svg viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="#fbbf24" d="M128 28l35 35-35 35-35-35 35-35zm63 63l35 35-35 35-35-35 35-35zM65 91l35 35-35 35-35-35 35-35zm63 63l35 35-35 35-35-35 35-35z"/></svg>
+        <strong>Binance</strong>
+      </span>
+      <span class="pay"><strong>بنكك</strong></span>
+      <span class="pay"><strong>ماي ماشي</strong></span>
+    </div>
 
-        <div id="detailsBox" class="hidden" style="margin-top:8px; color:#e5e7eb; line-height:1.9">
-          🎯 أتقن محتوى شهر كامل من الدراسة في 30 دقيقة فقط — بلا توتر، بلا إرهاق… فقط نتائج واضحة وملموسة.<br><br>
-          <b>لماذا هذا البرومبت أداتك السرية؟</b><br>
-          🧠 ادرس بذكاء، لا بمجهود أكبر…<br>
-          ⏳ يضغط خطة تعلم شهر كامل في جلسة واحدة مكثفة…<br>
-          🗺️ خريطة طريق واضحة…<br>
-          ⚙️ قابل للتخصيص لأي موضوع…<br>
-          🔥 أقصى استفادة من كل دقيقة…<br><br>
-          موجّه للطلاب والمحترفين والمتعلمين مدى الحياة. جاهز لتحويل 30 دقيقة إلى إتقان لشهر كامل؟
-        </div>
-      </div>
-    </section>
-
-    <section class="panel">
-      <h2 style="margin:0 0 8px">طريقة استخدام الـ PROMPT:</h2>
-      <p class="muted" style="margin:0">
-        لإستخدام ال Prompt بشكل فعال، اختر الكود المناسب، انسخه إلى الأداة أو الذكاء الاصطناعي ثم عدّل التفاصيل بما يناسب هدفك، ركّز على التخصيص لتحقق أقصى استفادة من النتيجة.
-      </p>
-    </section>
-
-    <!-- Social Banner -->
-    <div class="social" aria-label="تابعنا">
-      <a href="https://wa.me/249111343596?text=%D8%A7%D8%B1%D9%8A%D8%AF%20%D8%A7%D9%84%D9%83%D8%AA%D8%A7%D8%A8" target="_blank" rel="noopener" title="WhatsApp">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M12 2a10 10 0 0 0-8.6 15l-1 3.7 3.8-.9A10 10 0 1 0 12 2Z" stroke="#0b1220" stroke-width="2"/><path d="M8.5 9.5c0 3 3 5.5 5.5 5.5.7 0 1.6-.3 2.1-.8l.2-.2c.3-.3.4-.8.1-1.1l-1-1a.9.9 0 0 0-1.1-.1l-.5.2c-.5.2-1-.1-1.5-.5ل-1-1c-.4-.5-.7-1-.5-1.5l.2-.5c.1-.4 0-.8-.2-1.1l-1-1c-.3-.3-.8-.2-1.1.1l-.2.2c-.5.5-.8 1.4-.8 2.1Z" fill="#0b1220"/></svg>
-        واتساب
-      </a>
-      <a href="#" title="Telegram">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M22 3 9.5 12.5 6 10 2 8l20-5Z" stroke="#0b1220" stroke-width="2"/><path d="m22 3-5 18-7.5-8" stroke="#0b1220" stroke-width="2"/></svg>
-        تيليجرام
-      </a>
-      <a href="#" title="X / Twitter">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M3 3l18 18M21 3 3 21" stroke="#0b1220" stroke-width="2"/></svg>
-        X
-      </a>
-      <a href="#" title="YouTube">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="6" width="18" height="12" rx="3" stroke="#0b1220" stroke-width="2"/><path d="M10 9v6l6-3-6-3Z" fill="#0b1220"/></svg>
-        YouTube
-      </a>
-      <a href="#" title="Facebook">
-        <svg viewBox="0 0 24 24" fill="none"><path d="M14 8h3V5h-3a4 4 0 0 0-4 4v3H7v3h3v6h3v-6h3l1-3h-4V9a1 1 0 0 1 1-1Z" fill="#0b1220"/></svg>
-        Facebook
-      </a>
-      <a href="mailto:zxx3997@gmail.com" title="Email">
-        <svg viewBox="0 0 24 24" fill="none"><rect x="3" y="5" width="18" height="14" rx="2" stroke="#0b1220" stroke-width="2"/><path d="m4 7 8 6 8-6" stroke="#0b1220" stroke-width="2"/></svg>
-        Email
+    <div class="whats-cta">
+      <a class="shine-btn" id="whatsBtn" href="https://wa.me/249111343596?text=%D8%A3%D8%B1%D9%8A%D8%AF%20%D8%B4%D8%B1%D8%A7%D8%A1%20%D8%A7%D9%84%D9%83%D8%AA%D8%A7%D8%A8" target="_blank" rel="noopener">
+        <!-- WhatsApp Icon -->
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M20.52 3.48A11.5 11.5 0 004.94 19.06L3 21l1.94-1.94A11.5 11.5 0 1020.52 3.48z" stroke="#0b1220" stroke-width="1.6"/><path d="M8.5 9.5c.3-1 1.2-1.2 1.7-.9.5.4 1.5 2.2 1.7 2.4.3.2 1.8-1.1 2.2-.6.4.5.8 1.7.1 2.5-.7.8-2 1.7-3.6.9-1.6-.9-2.8-2.5-3.1-3.1-.3-.7-.1-1 .1-1.2z" fill="#0b1220"/></svg>
+        تواصل عبر واتساب للشراء
       </a>
     </div>
 
-    <div class="links" aria-label="روابط">
-      <button class="link-btn" data-sheet="about">من نحن</button>
-      <button class="link-btn" data-sheet="contact">تواصل معنا</button>
-      <button class="link-btn" data-sheet="privacy">سياسة الخصوصية</button>
-    </div>
-
-    <div class="sheet" id="sheet">
-      <div class="sheet-card" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-        <h3 id="sheetTitle">—</h3>
-        <div id="sheetContent" class="muted"></div>
-        <button class="btn btn-ghost back" id="sheetBack">رجوع</button>
+    <!-- Phone box -->
+    <div class="phone-box">
+      <div class="phone-head">لشراء الكتاب تواصل عبر هذا الرقم</div>
+      <div class="num-box">
+        <div class="num" id="phone">+249 11 134 3596</div>
+        <button class="copy-btn" id="copyBtn" title="نسخ الرقم" aria-label="نسخ">
+          <!-- copy icon only -->
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><rect x="9" y="9" width="10" height="10" rx="2" stroke="white" stroke-width="1.7"/><rect x="5" y="5" width="10" height="10" rx="2" stroke="white" stroke-width="1.7" opacity=".7"/></svg>
+        </button>
       </div>
     </div>
-
-    <footer>© <span id="y"></span> — تصميم احترافي، متجاوب، خفيف</footer>
   </div>
 
-<script>
-  const PROMPTS_URL = './prompts.json';
-  const WHATSAPP_NUMBER = '249111343596';
-  const WHATSAPP_MESSAGE = encodeURIComponent('اريد الكتاب');
+  <!-- Right: Description -->
+  <div class="card desc">
+    <h2>🎯 أتقن محتوى شهر كامل من الدراسة في 30 دقيقة فقط — بلا توتر، بلا إرهاق… فقط نتائج واضحة وملموسة.</h2>
+    <p><strong>لماذا هذا البرومبت أداتك السرية؟</strong></p>
+    <ul>
+      <li>🧠 ادرس بذكاء، لا بمجهود أكبر: يقسم المواضيع المعقدة إلى أجزاء صغيرة ومركّزة تسهّل الفهم والحفظ.</li>
+      <li>⏳ استثمار ذكي للوقت: يضغط خطة تعلم شهر كامل في جلسة واحدة مكثفة وعالية الإنتاجية.</li>
+      <li>🗺️ خريطة طريق واضحة: خطوات مرتبة — ماذا تدرس، ومتى، وكيف — بدون أي تخمين أو تشتت.</li>
+      <li>⚙️ قابل للتخصيص لأي موضوع: يعمل مع أي مجال أو مادة، ولا يتطلب أي خبرة مسبقة.</li>
+      <li>🔥 أقصى استفادة من كل دقيقة: يطلق طاقتك الذهنية بأقصى تركيز وبدقة عالية.</li>
+    </ul>
+    <p><strong>موجه خصيصًا لـ:</strong></p>
+    <ul>
+      <li>الطلاب الذين يغرقون وسط المعلومات ويريدون الوضوح.</li>
+      <li>المحترفين الراغبين في التطور السريع دون إرهاق.</li>
+      <li>المتعلمين مدى الحياة الباحثين عن جلسات دراسة عالية التأثير وخالية من الحشو.</li>
+    </ul>
+    <p>⚡ جاهز لتحويل 30 دقيقة إلى إتقان لشهر كامل؟ هذا الكتاب هو سلاحك السري للتعلّم السريع والفعال.</p>
+  </div>
+</section>
 
-  let PROMPTS=[]; let loaded=false;
+<footer>
+  <div class="links" role="navigation" aria-label="روابط معلومات">
+    <button class="link-pill" data-info="about">من نحن</button>
+    <button class="link-pill" data-info="contact">تواصل معنا</button>
+    <button class="link-pill" data-info="privacy">سياسة الخصوصية</button>
+  </div>
+</footer>
 
-  const $ = (s)=>document.querySelector(s);
-  const codeInput=$('#codeInput'), btnSearch=$('#btnSearch'), btnClear=$('#btnClear');
-  const resultBox=$('#resultBox'), resTitle=$('#resTitle'), resText=$('#resText');
-  const emptyBox=$('#emptyBox'), statusEl=$('#status'), buyBtn=$('#buyBtn'), countdown=$('#countdown');
+  </main>  <!-- Overlay / Sheet -->  <div class="overlay" id="overlay" aria-modal="true" role="dialog" aria-labelledby="sheetTitle" aria-hidden="true">
+    <div class="sheet" role="document">
+      <h3 id="sheetTitle"></h3>
+      <div id="sheetBody"></div>
+      <button class="back-btn" id="backBtn">رجوع</button>
+    </div>
+  </div>  <script>
+    // ===== Countdown (48h rolling window) =====
+    (function(){
+      const dEl=document.getElementById('d');
+      const hEl=document.getElementById('h');
+      const mEl=document.getElementById('m');
+      const sEl=document.getElementById('s');
+      const KEY='mrchatgpt_offer_deadline_v1';
+      function ensureDeadline(){
+        const now=Date.now();
+        let deadline=parseInt(localStorage.getItem(KEY)||'0',10);
+        if(!deadline || now>=deadline){
+          deadline= now + 48*60*60*1000; // +48h
+          localStorage.setItem(KEY, String(deadline));
+        }
+        return deadline;
+      }
+      function tick(){
+        let deadline=ensureDeadline();
+        const now=Date.now();
+        let diff=deadline-now;
+        if(diff<=0){
+          // restart another 48h
+          deadline = now + 48*60*60*1000;
+          localStorage.setItem(KEY, String(deadline));
+          diff=deadline-now;
+        }
+        const sec=Math.floor(diff/1000)%60;
+        const min=Math.floor(diff/1000/60)%60;
+        const hrs=Math.floor(diff/1000/60/60)%24;
+        const days=Math.floor(diff/1000/60/60/24);
+        dEl.textContent=String(days).padStart(2,'0');
+        hEl.textContent=String(hrs).padStart(2,'0');
+        mEl.textContent=String(min).padStart(2,'0');
+        sEl.textContent=String(sec).padStart(2,'0');
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
 
-  function show(el){ el.classList.remove('hidden'); } 
-  function hide(el){ el.classList.add('hidden'); }
-  function setStatus(msg,type='info'){ statusEl.textContent=msg||''; statusEl.style.color=(type==='error')?'#fca5a5':'#94a3b8'; if(msg)show(statusEl);else hide(statusEl); }
-  const normalize=(v)=>String(v||'').replace(/[\u200E\u200F\u202A-\u202E]/g,'').replace(/\s+/g,'').replace(/[^\x00-\x7F]/g,'').toUpperCase();
-  const debounce=(fn,ms)=>{ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); } };
+    // ===== Copy phone =====
+    (function(){
+      const btn=document.getElementById('copyBtn');
+      const num=document.getElementById('phone').textContent.replace(/\s+/g,'');
+      const toast=document.getElementById('toast');
+      btn.addEventListener('click', async ()=>{
+        try{
+          await navigator.clipboard.writeText(num);
+          toast.style.display='block';
+          setTimeout(()=> toast.style.display='none', 1500);
+        }catch(e){
+          alert('انسخ الرقم: '+num);
+        }
+      });
+    })();
 
-  async function loadPrompts(){
-    if(loaded) return PROMPTS;
-    try{
-      setStatus('...جارِ تحميل البيانات');
-      const r=await fetch(PROMPTS_URL,{cache:'no-store'}); if(!r.ok) throw 0;
-      const j=await r.json(); PROMPTS=Array.isArray(j?.prompts)?j.prompts:[]; loaded=true; setStatus('');
-    }catch{ setStatus('تعذر تحميل prompts.json — تأكد من رفعه بجوار index.html','error'); PROMPTS=[]; loaded=true; }
-    return PROMPTS;
-  }
-
-  async function search(){
-    const code=normalize(codeInput.value); 
-    if(!code){ hide(resultBox); show(emptyBox); setStatus(''); return; }
-    const data=await loadPrompts(); const item=data.find(p=>String(p.code).toUpperCase()===code);
-    if(!item){ hide(resultBox); show(emptyBox); setStatus(`لم يتم العثور على الكود: ${code}`,'error'); return; }
-    resTitle.textContent=item.title||'بدون عنوان'; resText.textContent=item.text||'—';
-    show(resultBox); hide(emptyBox); setStatus('');
-  }
-
-  async function copy(t){ try{ await navigator.clipboard.writeText(t); setStatus('تم النسخ ✓'); }catch{ setStatus('تعذر النسخ — انسخ يدويًا','error'); } }
-  $('#btnCopyText')?.addEventListener('click',()=>{ const t=resText.textContent.trim(); if(!t){ setStatus('لا يوجد نص لنسخه','error'); return;} copy(t); });
-
-  btnSearch.addEventListener('click',search);
-  codeInput.addEventListener('input', debounce(()=>search(), 250));
-  codeInput.addEventListener('keydown',e=>{ if(e.key==='Enter') search(); });
-  btnClear.addEventListener('click',()=>{ codeInput.value=''; hide(resultBox); show(emptyBox); setStatus(''); codeInput.focus(); });
-
-  function updateWA(){
-    const wa1=`https://wa.me/${WHATSAPP_NUMBER}?text=${WHATSAPP_MESSAGE}`;
-    const wa2=`https://api.whatsapp.com/send?phone=${WHATSAPP_NUMBER}&text=${WHATSAPP_MESSAGE}`;
-    buyBtn.href=wa1;
-    buyBtn.addEventListener('click', ()=>{ setTimeout(()=>{ if(document.visibilityState==='visible') location.href=wa2; }, 600); });
-  }
-
-  // زر تفاصيل: إظهار/إخفاء
-  document.getElementById('btnDetails').addEventListener('click', ()=>{
-    document.getElementById('detailsBox').classList.toggle('hidden');
-  });
-
-  // صورة الكتاب: جرّب نسبي ثم مطلق
-  (function(){
-    const img=document.getElementById('bookImg');
-    img.addEventListener('error', ()=>{ img.src='/book.jpg'; }, {once:true});
-  })();
-
-  // عداد العرض — يعيد من جديد عند الانتهاء
-  const SALE_KEY='saleEndsAt', SALE_MS=48*60*60*1000;
-  function initSale(){
-    let ends=+localStorage.getItem(SALE_KEY);
-    if(!ends || ends<Date.now()){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY, String(ends)); }
-    function tick(){
-      let d=ends-Date.now();
-      if(d<=0){ ends=Date.now()+SALE_MS; localStorage.setItem(SALE_KEY, String(ends)); d=ends-Date.now(); }
-      const h=String(Math.floor(d/3600000)).padStart(2,'0');
-      const m=String(Math.floor((d%3600000)/60000)).padStart(2,'0');
-      const s=String(Math.floor((d%60000)/1000)).padStart(2,'0');
-      countdown.textContent=`${h}:${m}:${s}`;
-    }
-    tick(); setInterval(tick,1000);
-  }
-
-  // شييت الروابط السفلية
-  const sheet=$('#sheet'), sheetTitle=$('#sheetTitle'), sheetContent=$('#sheetContent'); 
-  $('#sheetBack').addEventListener('click',()=>sheet.classList.remove('active')); 
-  sheet.addEventListener('click',e=>{ if(e.target===sheet) sheet.classList.remove('active'); });
-  document.querySelectorAll('[data-sheet]').forEach(b=>b.addEventListener('click',()=>{
-    const k=b.getAttribute('data-sheet');
-    const data={
-      about:{t:'من نحن',c:`في موقعنا، نجمع لك أقوى وأذكى الأوامر (Prompts) المصممة خصيصًا لمساعدتك على إنجاز مهامك بسرعة ودقة.
-نوفر مكتبة شاملة تغطي مجالات البرمجة، التسويق، التعليم، وصناعة المحتوى، مع إمكانية البحث برمز مختصر للوصول المباشر لأي أمر تحتاجه.
-هدفنا أن نوفر لك أداة بسيطة واحترافية تجعل أفكارك تنطلق دون حدود.`},
-      contact:{t:'تواصل معنا',c:`نسعد بتواصلكم معنا لأي استفسار أو اقتراح.
-📧 البريد الإلكتروني: zxx3997@gmail.com`},
-      privacy:{t:'سياسة الخصوصية',c:`نحن نحترم خصوصية زوارنا، ولا نقوم بجمع أي معلومات شخصية بدون موافقتك.
-قد يستخدم موقعنا ملفات تعريف الارتباط (Cookies) لتحسين تجربة الاستخدام، ولعرض المحتوى أو الإعلانات ذات الصلة.
-باستخدامك لموقعنا، فإنك توافق على هذه السياسة.
-إذا كانت لديك أي أسئلة حول خصوصيتك، يمكنك التواصل معنا عبر صفحة "تواصل معنا".`}
-    }[k];
-    if(!data) return;
-    sheetTitle.textContent=data.t; sheetContent.innerHTML='';
-    data.c.split('\n').forEach(line=>{ const p=document.createElement('p'); p.className='muted'; p.textContent=line; sheetContent.appendChild(p); });
-    sheet.classList.add('active');
-  }));
-
-  document.addEventListener('DOMContentLoaded', async ()=>{
-    document.getElementById('y').textContent=new Date().getFullYear();
-    updateWA(); initSale();
-    const t=setTimeout(()=>{ if(!loaded && !PROMPTS.length){ PROMPTS=[{code:'MY1',title:'تتبع تغيّرات الكائنات العميقة في JavaScript',text:'اكتب مكتبة JavaScript صغيرة تمكّن من تتبع تغيّرات الكائنات العميقة (deep observer) باستخدام Proxy و recursive reflection.'}]; loaded=true; console.warn('fallback data in use — ارفع prompts.json'); } },1200);
-    await loadPrompts().catch(()=>{}); clearTimeout(t);
-  });
-</script>
-</body>
+    // ===== Overlay content =====
+    (function(){
+      const overlay=document.getElementById('overlay');
+      const title=document.getElementById('sheetTitle');
+      const body=document.getElementById('sheetBody');
+      const back=document.getElementById('backBtn');
+      const map={
+        about:{
+          t:'من نحن',
+          b:`<p>في موقعنا، نجمع لك أقوى وأذكى الأوامر (Prompts) المصممة خصيصًا لمساعدتك على إنجاز مهامك بسرعة ودقة.</p>
+              <p>نوفر مكتبة شاملة تغطي مجالات البرمجة، التسويق، التعليم، وصناعة المحتوى، مع إمكانية البحث برمز مختصر للوصول المباشر لأي أمر تحتاجه.</p>
+              <p>هدفنا أن نوفر لك أداة بسيطة واحترافية تجعل أفكارك تنطلق دون حدود.</p>`
+        },
+        contact:{
+          t:'تواصل معنا',
+          b:`<p>نسعد بتواصلكم معنا لأي استفسار أو اقتراح.</p>
+              <p>📧 البريد الإلكتروني: <a href="mailto:zxx3997@gmail.com">zxx3997@gmail.com</a></p>`
+        },
+        privacy:{
+          t:'سياسة الخصوصية',
+          b:`<p>نحن نحترم خصوصية زوارنا، ولا نقوم بجمع أي معلومات شخصية بدون موافقتك.</p>
+              <p>قد يستخدم موقعنا ملفات تعريف الارتباط (Cookies) لتحسين تجربة الاستخدام، ولعرض المحتوى أو الإعلانات ذات الصلة.</p>
+              <p>باستخدامك لموقعنا، فإنك توافق على هذه السياسة. إذا كانت لديك أي أسئلة حول خصوصيتك، يمكنك التواصل معنا عبر صفحة "تواصل معنا".</p>`
+        }
+      };
+      document.querySelectorAll('[data-info]').forEach(btn=>{
+        btn.addEventListener('click',()=>{
+          const k=btn.getAttribute('data-info');
+          title.textContent=map[k].t; body.innerHTML=map[k].b;
+          overlay.classList.add('active'); overlay.setAttribute('aria-hidden','false');
+        })
+      });
+      back.addEventListener('click',()=>{ overlay.classList.remove('active'); overlay.setAttribute('aria-hidden','true'); });
+      overlay.addEventListener('click', (e)=>{ if(e.target===overlay) back.click(); });
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape' && overlay.classList.contains('active')) back.click(); });
+    })();
+  </script></body>
 </html>

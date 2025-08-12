@@ -231,7 +231,7 @@
 
 <script>
   const PROMPTS_URL = './prompts.json';
-  const PHONE = '249111343596'; // بدون مسافات أو +
+  const PHONE = '249111343596'; // بدون +
   const TEXT  = 'اريد الكتاب';
 
   let PROMPTS=[]; let loaded=false;
@@ -278,11 +278,12 @@
   codeInput.addEventListener('keydown',e=>{ if(e.key==='Enter') search(); });
   btnClear.addEventListener('click',()=>{ codeInput.value=''; hide(resultBox); show(emptyBox); setStatus(''); codeInput.focus(); });
 
-  // واتساب: رابط عميق + سقوط تلقائي للويب عند الفشل/المتصفحات المدمجة
+  // واتساب: intent لأندرويد + deep-link ل iOS + سقوط تلقائي للويب + دعم المتصفحات داخل التطبيقات
   (function initWhatsApp(){
-    const waDeep = `whatsapp://send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
-    const waApi  = `https://api.whatsapp.com/send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
-    const waMe   = `https://wa.me/${PHONE}?text=${encodeURIComponent(TEXT)}`;
+    const waDeep   = `whatsapp://send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
+    const waApi    = `https://api.whatsapp.com/send?phone=${PHONE}&text=${encodeURIComponent(TEXT)}`;
+    const waMe     = `https://wa.me/${PHONE}?text=${encodeURIComponent(TEXT)}`;
+    const waIntent = `intent://send/?phone=${PHONE}&text=${encodeURIComponent(TEXT)}#Intent;scheme=whatsapp;package=com.whatsapp;end`;
 
     buyBtn.href = waApi; // للنسخ/الضغط المطوّل
     buyBtn.rel  = "noopener noreferrer";
@@ -290,14 +291,14 @@
     function openWA(e){
       e.preventDefault();
       const ua = navigator.userAgent.toLowerCase();
-      // إنستغرام/فيسبوك/تيكتوك متصفح داخلي: افتح API مباشرة
-      if (/(fb_iab|instagram|tiktok|snapchat|line)/.test(ua)) {
-        window.location.href = waApi; return;
-      }
-      // جرّب الرابط العميق
-      const start=Date.now();
-      const a=document.createElement('a'); a.href=waDeep; document.body.appendChild(a); a.click();
-      setTimeout(()=>{ if(Date.now()-start<1200){ window.location.href = waMe; }},700);
+      const isAndroid = /android/.test(ua);
+      const isIOS     = /iphone|ipad|ipod/.test(ua);
+      const inApp     = /(fb_iab|instagram|tiktok|snapchat|pinterest|linkedinapp)/.test(ua);
+
+      if (inApp) { window.open(waApi, '_blank', 'noopener'); return; }
+      if (isAndroid) { window.location.href = waIntent; setTimeout(()=>{ window.location.href = waMe; }, 1200); return; }
+      if (isIOS)     { window.location.href = waDeep;   setTimeout(()=>{ window.location.href = waMe; }, 1200); return; }
+      window.location.href = waMe;
     }
     buyBtn.addEventListener('click', openWA);
   })();
